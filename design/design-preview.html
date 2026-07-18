@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACA Scorecard | Phase 1 Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #222222;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+    --ivory: #F7F5EF;
+    --charcoal: #3A3A3A;
+    --grey: #8A8A8A;
+    --grey-light: #D9D9D9;
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--ivory); font: 400 16px/1.6 var(--font-sans); color: var(--charcoal); padding: 48px 32px 80px; }
+
+  /* Preview chrome (internal review page, not the product) */
+  .preview-head { max-width: 1400px; margin: 0 auto 40px; }
+  .preview-head .eyebrow { font: 600 11px/1.6 var(--font-sans); text-transform: uppercase; letter-spacing: .22em; color: var(--gold); margin-bottom: 14px; }
+  .preview-head h1 { font: 700 clamp(30px, 4vw, 44px)/1.15 var(--font-head); color: var(--black); letter-spacing: -0.01em; margin-bottom: 12px; }
+  .preview-head h1 em { font-style: italic; }
+  .preview-head p { max-width: 70ch; color: var(--charcoal); }
+
+  .tokens { max-width: 1400px; margin: 0 auto 56px; display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .swatches { display: flex; gap: 10px; }
+  .swatch { width: 84px; }
+  .swatch .chip { height: 56px; border: 1px solid var(--grey-light); }
+  .swatch .lab { font: 500 10.5px/1.4 var(--font-sans); color: var(--grey); margin-top: 6px; }
+  .type-spec .t1 { font: 700 30px/1.15 var(--font-head); color: var(--black); }
+  .type-spec .t1 em { font-style: italic; }
+  .type-spec .t2 { font: 600 11px/1.6 var(--font-sans); text-transform: uppercase; letter-spacing: .22em; color: var(--gold); margin-top: 6px; }
+  .type-spec .t3 { font: 400 15px/1.6 var(--font-sans); color: var(--charcoal); margin-top: 6px; }
+
+  .frames { max-width: 1400px; margin: 0 auto; display: flex; gap: 36px; flex-wrap: wrap; align-items: flex-start; }
+  .frame-col { width: 390px; }
+  .frame-col > .frame-label { font: 600 11px/1.6 var(--font-sans); text-transform: uppercase; letter-spacing: .16em; color: var(--grey); margin-bottom: 10px; }
+  .phone { width: 390px; background: var(--black); border: 1px solid var(--grey-light); box-shadow: 0 20px 50px rgba(34,34,34,.18); overflow: hidden; }
+  .screen { padding: 34px 26px 30px; color: var(--white); display: flex; flex-direction: column; min-height: 760px; }
+
+  /* Shared product styles */
+  .eyebrow { font: 600 11px/1.6 var(--font-sans); text-transform: uppercase; letter-spacing: .22em; color: var(--grey); }
+  h2.hero { font: 700 42px/1.15 var(--font-head); letter-spacing: -0.01em; color: var(--white); }
+  h2.hero em { font-style: italic; }
+  .btn { display: inline-block; font: 700 12px/1 var(--font-sans); text-transform: uppercase; letter-spacing: .12em; padding: 18px 40px; border: none; border-radius: 0; text-align: center; text-decoration: none; }
+  .btn-gold { background: var(--gold); color: var(--black); }
+  .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.3); font-weight: 600; padding: 17px 39px; }
+
+  /* Landing */
+  .landing .eyebrow { margin-bottom: 18px; }
+  .landing h2.hero { margin-bottom: 24px; }
+  .landing .sub { color: var(--ivory); font-size: 17px; margin-bottom: 14px; }
+  .landing .mirror { color: var(--grey); font-size: 14.5px; margin-bottom: 36px; }
+  .landing .privacy { color: var(--grey); font-size: 12px; margin-top: 20px; }
+  .landing footer { margin-top: auto; padding-top: 44px; }
+  .landing footer .who { color: var(--grey); font-size: 12.5px; line-height: 1.55; }
+  .landing footer .motto { font: 700 italic 14.5px/1.4 var(--font-head); color: var(--ivory); margin-top: 10px; }
+  .landing footer img { height: 26px; display: block; margin-left: auto; margin-top: 16px; }
+
+  /* Quiz */
+  .progress-track { height: 2px; background: var(--charcoal); width: 100%; margin-bottom: 10px; }
+  .progress-fill { height: 100%; background: var(--gold); width: 33%; }
+  .quiz-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 64px; }
+  .quiz-top .back { color: var(--grey); font: 600 12px var(--font-sans); text-transform: uppercase; letter-spacing: .08em; }
+  .quiz-top .count { color: var(--grey); font-size: 12px; letter-spacing: .08em; }
+  .pillar-label { font: 600 11px/1.6 var(--font-sans); text-transform: uppercase; letter-spacing: .22em; color: var(--grey); margin-bottom: 18px; }
+  .q-text { font: 700 27px/1.3 var(--font-head); letter-spacing: -0.01em; margin-bottom: 40px; }
+  .answers { display: flex; flex-direction: column; gap: 10px; }
+  .answers .a { font: 500 15px var(--font-sans); text-align: left; color: var(--ivory); background: transparent; border: 1px solid rgba(255,255,255,.22); padding: 16px 18px; }
+  .answers .a.picked { border-color: var(--white); background: rgba(255,255,255,.06); }
+
+  /* Results */
+  .results .eyebrow { margin-bottom: 14px; }
+  .results h2.hero { font-size: 34px; margin-bottom: 6px; }
+  .results .verdict { border-top: 1px solid rgba(255,255,255,.25); padding-top: 20px; margin: 26px 0 34px; color: var(--ivory); font-size: 15.5px; }
+  .pillar-card { margin-bottom: 26px; }
+  .pillar-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .pillar-name { font: 600 13px var(--font-sans); text-transform: uppercase; letter-spacing: .08em; }
+  .pillar-score { color: var(--grey); font-size: 13px; }
+  .bar-track { height: 3px; background: var(--charcoal); margin-bottom: 10px; }
+  .bar-fill { height: 100%; background: var(--white); }
+  .pillar-card.leak .bar-fill { background: var(--gold); }
+  .tier { font: 700 italic 15px var(--font-head); margin-bottom: 5px; }
+  .pillar-card.leak .tier { color: var(--gold); }
+  .pillar-read { color: var(--grey-light); font-size: 14px; }
+  .moves { margin: 36px 0 40px; }
+  .moves .eyebrow { margin-bottom: 20px; color: var(--white); }
+  .move { display: flex; gap: 16px; margin-bottom: 20px; }
+  .move .num { font: 600 13px var(--font-sans); color: var(--grey); letter-spacing: .08em; padding-top: 2px; }
+  .move .body { color: var(--grey-light); font-size: 14.5px; }
+  .move .body strong { color: var(--white); font-weight: 600; }
+  .capture { border: 1px solid rgba(255,255,255,.22); padding: 26px 22px; margin-bottom: 36px; }
+  .capture .eyebrow { color: var(--white); margin-bottom: 12px; }
+  .capture p { color: var(--grey-light); font-size: 14px; margin-bottom: 18px; }
+  .capture input { width: 100%; background: transparent; border: 1px solid rgba(255,255,255,.3); color: var(--white); font: 500 15px var(--font-sans); padding: 15px 16px; margin-bottom: 12px; border-radius: 0; }
+  .capture input::placeholder { color: var(--grey); }
+  .capture .btn { width: 100%; }
+  .capture .fine { color: var(--grey); font-size: 11.5px; margin: 10px 0 0; }
+  .next-step { margin-bottom: 36px; }
+  .next-step .eyebrow { margin-bottom: 12px; }
+  .next-step p { color: var(--grey-light); font-size: 14px; margin-bottom: 18px; }
+  .results footer img { height: 24px; display: block; margin-left: auto; margin-top: auto; }
+
+  .notes { max-width: 1400px; margin: 64px auto 0; border-top: 1px solid var(--grey-light); padding-top: 32px; }
+  .notes h3 { font: 600 13px var(--font-sans); text-transform: uppercase; letter-spacing: .08em; color: var(--black); margin-bottom: 14px; }
+  .notes li { margin: 0 0 10px 18px; font-size: 14.5px; }
+</style>
+</head>
+<body>
+
+<div class="preview-head">
+  <p class="eyebrow">ELV8 Performance, internal design review</p>
+  <h1>ACA Scorecard, <em>Phase 1</em> design pass</h1>
+  <p>Three core screens at mobile width, built on the locked system in brand/DESIGN.md. Copy shown is the approved audit language plus marked placeholders. Nothing here is deployed.</p>
+</div>
+
+<div class="tokens">
+  <div>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#222222"></div><p class="lab">Near-Black 222222</p></div>
+      <div class="swatch"><div class="chip" style="background:#D4AF37"></div><p class="lab">Gold D4AF37</p></div>
+      <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><p class="lab">White FFFFFF</p></div>
+      <div class="swatch"><div class="chip" style="background:#F7F5EF"></div><p class="lab">Ivory F7F5EF</p></div>
+      <div class="swatch"><div class="chip" style="background:#3A3A3A"></div><p class="lab">Charcoal 3A3A3A</p></div>
+      <div class="swatch"><div class="chip" style="background:#8A8A8A"></div><p class="lab">Grey 8A8A8A</p></div>
+    </div>
+  </div>
+  <div class="type-spec">
+    <p class="t1">Playfair headlines, one <em>italic accent</em></p>
+    <p class="t2">Montserrat eyebrow, wide tracked, gold</p>
+    <p class="t3">Montserrat body at a comfortable reading size. Sharp corners everywhere, radius zero.</p>
+  </div>
+</div>
+
+<div class="frames">
+
+  <!-- SCREEN 1: LANDING -->
+  <div class="frame-col">
+    <p class="frame-label">1. Landing</p>
+    <div class="phone"><div class="screen landing">
+      <p class="eyebrow" style="margin-bottom:18px;">ELV8 Performance</p>
+      <h2 class="hero">The ACA <em>Scorecard</em></h2>
+      <p class="sub">Accountability. Consistency. Action. Fifteen questions, three minutes, one honest read on each.</p>
+      <p class="mirror">This is not a personality test. It is a mirror. Answer for how you actually behave, not how you would like to.</p>
+      <div><span class="btn btn-gold">Start the scorecard</span></div>
+      <p class="privacy">Your answers stay on this page unless you choose to have your results emailed.</p>
+      <footer>
+        <p class="who">Built by Shea McAleese. 4x Olympian, 320+ international caps, high performance coach in the NZ national environment.</p>
+        <p class="motto">High performance isn't an accident.</p>
+        <img src="../assets/elv8-white.png" alt="ELV8 Performance">
+      </footer>
+    </div></div>
+  </div>
+
+  <!-- SCREEN 2: QUESTION -->
+  <div class="frame-col">
+    <p class="frame-label">2. Question</p>
+    <div class="phone"><div class="screen">
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <div class="quiz-top"><span class="back">Back</span><span class="count">Question 6 of 15</span></div>
+      <p class="pillar-label">Pillar two · Consistency</p>
+      <p class="q-text">My standard on an ordinary Tuesday matches my standard on the day everyone is watching.</p>
+      <div class="answers">
+        <div class="a">Never</div>
+        <div class="a">Rarely</div>
+        <div class="a">About half the time</div>
+        <div class="a picked">Most of the time</div>
+        <div class="a">Every time</div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- SCREEN 3: RESULTS -->
+  <div class="frame-col">
+    <p class="frame-label">3. Results, full scroll</p>
+    <div class="phone"><div class="screen results" style="min-height:0;">
+      <p class="eyebrow">Your result</p>
+      <h2 class="hero">Your leak: <em>Consistency</em></h2>
+      <p class="verdict">Your leak is Consistency. You can see it clearly, you just do not repeat it. Accountability without consistency is insight with no follow-through. Structure beats intention.</p>
+
+      <div class="pillar-card">
+        <div class="pillar-head"><span class="pillar-name">Accountability</span><span class="pillar-score">75 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+        <p class="tier">Holding</p>
+        <p class="pillar-read">You look at yourself clearly and own what you find. Protect this. It is the pillar everything else stands on.</p>
+      </div>
+      <div class="pillar-card leak">
+        <div class="pillar-head"><span class="pillar-name">Consistency</span><span class="pillar-score">45 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+        <p class="tier">Leaking</p>
+        <p class="pillar-read">The big days get your best. Tuesdays do not. The gap between those two is the gap in your results.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-head"><span class="pillar-name">Action</span><span class="pillar-score">70 / 100</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+        <p class="tier">Holding</p>
+        <p class="pillar-read">You move before you feel ready and let clarity catch up. Keep choosing the next controllable action.</p>
+      </div>
+
+      <div class="moves">
+        <p class="eyebrow">Your next three moves</p>
+        <div class="move"><span class="num">01</span><p class="body"><strong>Protect what compounds.</strong> Name the behaviours that compound for you, preparation, recovery, reflection, and give each one a protected slot in your week.</p></div>
+        <div class="move"><span class="num">02</span><p class="body"><strong>Set your Tuesday standard.</strong> Write down the standard you hold on the big day, then hold it on the ordinary one.</p></div>
+        <div class="move"><span class="num">03</span><p class="body"><strong>Judge the process.</strong> One line each night on whether the standard held, regardless of the result.</p></div>
+      </div>
+
+      <div class="capture">
+        <p class="eyebrow">Keep your scorecard</p>
+        <p>Get your full scorecard and action plan in your inbox, plus one short follow-up from Shea on working your leak pillar.</p>
+        <input type="email" placeholder="Your email">
+        <span class="btn btn-gold">Email my results</span>
+        <p class="fine">Your results, then the occasional letter worth reading. Unsubscribe any time.</p>
+      </div>
+
+      <div class="next-step">
+        <p class="eyebrow">The next step</p>
+        <p>The ACA Framework for Coaches is a six week programme built on this exact system. Doors open after the World Cup. The waitlist hears first.</p>
+        <span class="btn btn-ghost">Join the waitlist</span>
+      </div>
+
+      <footer><img src="../assets/elv8-white.png" alt="ELV8 Performance"></footer>
+    </div></div>
+  </div>
+
+</div>
+
+<div class="notes">
+  <h3>Decisions in this pass, for sign-off</h3>
+  <ul>
+    <li><strong>Name.</strong> Proposing "The ACA Scorecard" as the user-facing name. Your strategy file already calls the list the ACA Scorecard email list. Say the word and it stays, or give me your name.</li>
+    <li><strong>Gold discipline.</strong> Landing and question screens carry exactly one gold moment each (the start CTA, the progress bar). The results screen is one long scroll and carries two: the leak pillar marker and the email capture CTA. That is a deliberate stretch of the one-per-design rule so the eye lands on the leak first and the capture second. Tell me if you want it stricter.</li>
+    <li><strong>Placeholders, not final copy.</strong> The three moves, the capture copy, and the waitlist copy are my drafts from your framework file. They are placeholders until you confirm them in Phase 3 and Phase 5. The verdict and pillar reads are the audit copy you already shipped.</li>
+    <li><strong>Results before capture.</strong> Results show immediately, email is optional and sits after the action plan. No gate in front of the score.</li>
+  </ul>
+</div>
+
+</body>
+</html>

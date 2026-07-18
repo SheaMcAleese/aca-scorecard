@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The ACA Scorecard | ELV8 Performance</title>
+<meta name="description" content="Accountability. Consistency. Action. Fifteen questions, three minutes, one honest read on each. Built by Shea McAleese, 4x Olympian and high performance coach.">
+<meta name="theme-color" content="#222222">
+<meta property="og:title" content="The ACA Scorecard">
+<meta property="og:description" content="Accountability. Consistency. Action. Fifteen questions, three minutes, one honest read on each. Built by Shea McAleese, 4x Olympian and high performance coach.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sheamcaleese.github.io/aca-scorecard/">
+<meta property="og:image" content="https://sheamcaleese.github.io/aca-scorecard/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23222222'/%3E%3Cpath d='M16 40 L32 24 L48 40' fill='none' stroke='%23D4AF37' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LANDING (copy refined in Phase 5) -->
+  <section id="landing" class="screen active">
+    <p class="eyebrow">ELV8 Performance</p>
+    <h1>The ACA <em>Scorecard</em></h1>
+    <p class="sub">Accountability. Consistency. Action. Fifteen questions, three minutes, one honest read on each.</p>
+    <p class="mirror">This is not a personality test. It is a mirror. Answer for how you actually behave, not how you would like to.</p>
+    <button class="btn btn-gold" onclick="startScorecard()">Start the scorecard</button>
+    <p class="privacy">Your answers stay on this page unless you choose to have your results emailed.</p>
+    <footer>
+      <p class="who">Built by Shea McAleese. 4x Olympian, 320+ international caps, high performance coach in the NZ national environment.</p>
+      <p class="motto">High performance isn't an accident.</p>
+      <img src="assets/elv8-white.png" alt="ELV8 Performance">
+    </footer>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="quiz-top">
+      <button class="back" id="backBtn" onclick="goBack()">Back</button>
+      <span class="count" id="qCount"></span>
+    </div>
+    <p class="pillar-label" id="pillarLabel"></p>
+    <p class="q-text" id="qText"></p>
+    <div class="answers" id="answers"></div>
+    <p class="key-hint">Keys 1 to 5 work too.</p>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="screen">
+    <p class="eyebrow">Your result</p>
+    <h1 id="resultHead"></h1>
+    <p class="total" id="totalLine"></p>
+    <p class="verdict" id="verdict"></p>
+    <div id="pillarCards"></div>
+
+    <div class="moves">
+      <p class="eyebrow" id="movesEyebrow">Your next three moves</p>
+      <div id="movesList"></div>
+    </div>
+
+    <div class="capture" id="capture" style="display:none">
+      <p class="eyebrow">Keep your scorecard</p>
+      <form id="captureForm" onsubmit="submitEmail(event)">
+        <p>Get your full scorecard and action plan in your inbox, plus one short follow-up from Shea on working your leak pillar.</p>
+        <input type="email" id="emailInput" placeholder="Your email" autocomplete="email" required>
+        <button type="submit" class="btn btn-gold" id="emailBtn">Email my results</button>
+        <p class="error" id="captureError"></p>
+        <p class="fine">Your results, then the occasional letter worth reading. Unsubscribe any time.</p>
+      </form>
+      <p class="sent" id="captureDone" style="display:none">Done. Your scorecard is on its way. If it is not there in a few minutes, check the folder the good stuff always lands in.</p>
+    </div>
+
+    <div class="next-step" id="nextStep" style="display:none">
+      <p class="eyebrow">The next step</p>
+      <p>The ACA Framework for Coaches is a six week programme built on this exact system. Doors open after the World Cup. The waitlist hears first.</p>
+      <a class="btn btn-ghost" id="waitlistLink" href="#" target="_blank" rel="noopener">Join the waitlist</a>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="shareResult()">Share your score</button>
+      <button class="btn btn-ghost" onclick="retake()">Retake</button>
+    </div>
+
+    <footer><img src="assets/elv8-white.png" alt="ELV8 Performance"></footer>
+  </section>
+
+</div>
+<div class="copied" id="copiedToast">Copied. Paste it anywhere.</div>
+
+<script src="js/config.js"></script>
+<script src="js/questions.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/content.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
