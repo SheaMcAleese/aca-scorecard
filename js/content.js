@@ -33,19 +33,19 @@ const VERDICTS = {
 // framework file. Shown for the leak pillar only.
 const MOVES = {
   accountability: [
-    { head: 'Own it first.', body: 'At your next setback, answer one question before any explanation leaves your mouth: what was my role in this?' },
-    { head: 'One standard.', body: 'Write down the standard you ask of the people around you. Hold yourself to it before you hold anyone else to it.' },
-    { head: 'Beat the review.', body: 'Review yourself honestly once a week, before anyone else has to do it for you. Do not wait to be held accountable.' }
+    { head: 'Take the stairs.', body: 'At the next result that stings, ask one question before any explanation leaves your mouth: what was my role in this?' },
+    { head: 'One standard.', body: 'Write down the standard you ask of the people around you. Hold yourself to it first.' },
+    { head: 'Beat the review.', body: 'Book ten minutes a week to review yourself honestly, before anyone else has to do it for you.' }
   ],
   consistency: [
     { head: 'Protect what compounds.', body: 'Name the behaviours that compound for you, preparation, recovery, reflection, and give each one a protected slot in your week.' },
-    { head: 'Set your Tuesday standard.', body: 'Write down the standard you hold on the big day, then hold it on the ordinary one.' },
-    { head: 'Judge the process.', body: 'One line each night on whether the standard held, regardless of the result.' }
+    { head: 'Set your Tuesday standard.', body: 'Write down the standard you hold on the day everyone is watching, then hold it on an ordinary Tuesday.' },
+    { head: 'Judge the process.', body: 'One line each night: did the standard hold? The result does not get a vote.' }
   ],
   action: [
-    { head: 'Name the next move.', body: 'Identify your next controllable action and execute it today. Not the plan, the action.' },
-    { head: 'Split the page.', body: 'Two columns: what you control, what you do not. Put your energy on the first column and leave the second alone.' },
-    { head: 'Move before ready.', body: 'Take the imperfect step. Moving far enough lets the path reveal itself, and it teaches you what planning never can.' }
+    { head: 'Name the next controllable action.', body: 'Then take it today. Not the plan, the action.' },
+    { head: 'Split the page.', body: 'Two columns: what you control, what you do not. Your energy goes on the first column only.' },
+    { head: 'Move before you feel ready.', body: 'Take the imperfect step. Moving teaches you what another round of planning never will.' }
   ]
 };
 
