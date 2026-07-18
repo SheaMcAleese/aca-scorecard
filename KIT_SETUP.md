@@ -1,5 +1,12 @@
 # Kit setup for the ACA Scorecard
 
+Cost: $0. Everything below works on Kit's FREE Newsletter plan (up to
+10,000 subscribers, unlimited forms and landing pages, unlimited
+broadcasts, and one automation with one email sequence). One automation
+is exactly what this build needs, so do not pay for Creator. Sign up at
+kit.com and pick the free plan. The only free-plan trade-off is a small
+"Powered by Kit" line in the emails.
+
 One-time setup, about 20 minutes in your Kit account. Do the steps in
 order: the custom fields must exist before anything else, because Kit
 silently discards data sent to fields that do not exist yet.
@@ -61,17 +68,24 @@ the results screen appears automatically once it is set.
 Anyone who joins there is your pre-sale evidence list for the 31 October
 build-or-kill decision.
 
-## 6. Build the automation
+## 6. Build the automation (free-plan version)
 
-Kit: Automate, then Visual Automations, then New automation.
+The free plan gives you one automation and one email sequence. Put both
+emails inside the sequence and use the automation only to connect the
+form to it:
 
-- Trigger: Joins a form, pick ACA Scorecard.
-- Step 1: Send email. Subject and body from email/results-email.md. Make
-  the [Join the waitlist] line a button linked to the step 5 landing page.
-  Send immediately.
-- Step 2: Wait 2 days.
-- Step 3: Send email. Subject and body from email/follow-up-email.md.
-- Set the automation live.
+1. Kit: Send, then Sequences, then New sequence. Name it: ACA Scorecard
+   results. Add two emails:
+   - Email 1: subject and body from email/results-email.md, delay set to
+     "immediately". Make the [Join the waitlist] line a button linked to
+     the step 5 landing page.
+   - Email 2: subject and body from email/follow-up-email.md, delay set
+     to 2 days after the previous email.
+   Publish the sequence.
+2. Kit: Automate, then Visual Automations, then New automation.
+   - Trigger: Joins a form, pick ACA Scorecard.
+   - Step: Add to sequence, pick ACA Scorecard results.
+   - Set the automation live.
 
 The results email uses Liquid conditionals so each subscriber only sees
 the action plan for their own leak pillar. Paste the body as-is including
