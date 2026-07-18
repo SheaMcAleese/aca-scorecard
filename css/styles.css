@@ -173,6 +173,13 @@ h1 em { font-style: italic; }
 .move .body { color: var(--grey-light); font-size: 15px; }
 .move .body strong { color: var(--white); font-weight: 600; }
 
+/* Paid gate (OFF in v1, see config.js) */
+.moves-locked {
+  border: 1px solid rgba(255,255,255,.22);
+  padding: 26px 22px;
+}
+.moves-locked p { color: var(--grey-light); font-size: 14.5px; margin-bottom: 18px; max-width: 46ch; }
+
 /* Email capture */
 .capture {
   border: 1px solid rgba(255,255,255,.22);

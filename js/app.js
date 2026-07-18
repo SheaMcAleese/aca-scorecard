@@ -105,8 +105,16 @@ function showResults() {
     ? 'Keep it moving: three ways to raise ' + leak.name.toLowerCase()
     : 'Your next three moves';
 
+  // Paid gate: OFF in v1. Appears only when BOTH flag and link are set in
+  // config.js. It hides the action plan behind the payment link. This is a
+  // client-side gate only; see README.md before ever turning it on.
+  const gated = CONFIG.PAYWALL_ENABLED && CONFIG.PAYMENT_LINK;
+  document.getElementById('movesList').style.display = gated ? 'none' : '';
+  document.getElementById('movesLocked').style.display = gated ? '' : 'none';
+  if (gated) document.getElementById('unlockLink').href = CONFIG.PAYMENT_LINK;
+
   // Capture and waitlist stay hidden until wired in config.js.
-  document.getElementById('capture').style.display = CONFIG.KIT_FORM_ID ? '' : 'none';
+  document.getElementById('capture').style.display = (CONFIG.KIT_FORM_ID && CONFIG.KIT_API_KEY) ? '' : 'none';
   document.getElementById('nextStep').style.display = CONFIG.WAITLIST_URL ? '' : 'none';
   if (CONFIG.WAITLIST_URL) document.getElementById('waitlistLink').href = CONFIG.WAITLIST_URL;
 
@@ -116,8 +124,11 @@ function showResults() {
   });
 }
 
-// Kit email capture. Public form endpoint, no keys. Wired in Phase 4 by
-// setting CONFIG.KIT_FORM_ID; until then the card is hidden.
+// Kit email capture via the v3 subscribe endpoint (public API key, safe for
+// client-side use; the API secret never appears in this project). Wired by
+// setting CONFIG.KIT_FORM_ID and CONFIG.KIT_API_KEY per KIT_SETUP.md; until
+// both are set the card is hidden. The five aca_* custom fields must exist
+// in Kit first or Kit silently discards them (KIT_SETUP.md, step 1).
 async function submitEmail(event) {
   event.preventDefault();
   if (!lastResult) return;
@@ -134,11 +145,12 @@ async function submitEmail(event) {
   btn.textContent = 'Sending';
   const leak = lastResult.allHolding ? 'None, all holding' : lastResult.pillars[lastResult.leakIdx].name;
   try {
-    const res = await fetch('https://app.kit.com/forms/' + CONFIG.KIT_FORM_ID + '/subscriptions', {
+    const res = await fetch('https://api.convertkit.com/v3/forms/' + CONFIG.KIT_FORM_ID + '/subscribe', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify({
-        email_address: email,
+        api_key: CONFIG.KIT_API_KEY,
+        email: email,
         fields: {
           aca_accountability: lastResult.pillars[0].score,
           aca_consistency: lastResult.pillars[1].score,

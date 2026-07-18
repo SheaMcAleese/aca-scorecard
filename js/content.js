@@ -1,7 +1,8 @@
 // All results copy lives here so wording edits never touch logic.
 // READS and VERDICTS carry over from the shipped ACA Self-Audit.
-// MOVES are Phase 3 material: drafted from _context/ELV8_ACA_Framework.md,
-// placeholders until Shea signs them off.
+// MOVES drawn from _context/ELV8_ACA_Framework.md, signed off by Shea
+// 18 July 2026. His wording wins: edit only with his sign-off, and keep
+// the email templates in email/ in step with any change.
 const TIER_WORD = { holding: 'Holding', leaking: 'Leaking', missing: 'Missing' };
 
 const READS = {

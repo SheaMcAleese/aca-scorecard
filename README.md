@@ -17,7 +17,13 @@ One mobile-first single-page web app, static host (GitHub Pages):
    validation bar, decision date 31 Oct 2026)
 
 Parked for v2: dashboard, paid tiers, accounts, login. A paid gate is built
-behind a config flag but OFF and disconnected in v1.
+behind a config flag but OFF and disconnected in v1: with PAYWALL_ENABLED
+true AND a PAYMENT_LINK set in js/config.js, the action plan hides behind
+an unlock button pointing at the payment link. Both stay unset in v1. Know
+before turning it on: it is a client-side gate (no backend), so it filters
+honest users, it does not stop a determined one. Real enforcement means
+delivering the plan by email after purchase instead; decide that when the
+gate earns its keep.
 
 ## Stack (decided Phase 1)
 
