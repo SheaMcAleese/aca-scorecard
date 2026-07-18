@@ -98,7 +98,7 @@ h1 em { font-style: italic; }
   font: 700 italic 15px/1.4 var(--font-head);
   color: var(--ivory);
 }
-#landing footer img { height: 30px; margin-top: 18px; display: block; margin-left: auto; }
+#landing footer img { height: 30px; margin-top: 18px; display: block; margin-left: auto; mix-blend-mode: screen; }
 
 /* Quiz */
 #quiz { padding-top: 20px; padding-bottom: 40px; }
@@ -227,7 +227,7 @@ h1 em { font-style: italic; }
 
 .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; margin-bottom: 8px; }
 #results footer { margin-top: 44px; }
-#results footer img { height: 26px; display: block; margin-left: auto; }
+#results footer img { height: 26px; display: block; margin-left: auto; mix-blend-mode: screen; }
 .copied {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
   background: var(--ivory); color: var(--black);

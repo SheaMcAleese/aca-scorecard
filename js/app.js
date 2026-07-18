@@ -3,6 +3,7 @@
 let answers = new Array(QUESTIONS.length).fill(null);
 let current = 0;
 let lastResult = null;
+let advancing = false;  // blocks double-taps during the 220ms advance window
 
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -13,6 +14,16 @@ function show(id) {
 function startScorecard() {
   answers = new Array(QUESTIONS.length).fill(null);
   current = 0;
+  advancing = false;
+  // Reset the email capture card in case a previous run already submitted.
+  const form = document.getElementById('captureForm');
+  const btn = document.getElementById('emailBtn');
+  form.style.display = '';
+  document.getElementById('captureDone').style.display = 'none';
+  document.getElementById('captureError').textContent = '';
+  document.getElementById('emailInput').value = '';
+  btn.disabled = false;
+  btn.textContent = 'Email my results';
   renderQuestion();
   show('quiz');
 }
@@ -36,10 +47,13 @@ function renderQuestion() {
 }
 
 function pick(value, btn) {
+  if (advancing) return;
+  advancing = true;
   answers[current] = value;
   document.querySelectorAll('#answers button').forEach(b => b.classList.remove('picked'));
   btn.classList.add('picked');
   setTimeout(() => {
+    advancing = false;
     if (current < QUESTIONS.length - 1) {
       current++;
       renderQuestion();

@@ -48,7 +48,8 @@ aca-suite/
   js/content.js       Results copy: pillar reads, verdicts, action plans
   js/app.js           Flow, scoring engine, Kit submit
   assets/             Logo, og image
-  design/             Phase 1 design preview (internal, not deployed)
+  design/             Internal design preview + og card source (gitignored,
+                      never deploys; keep locally for og.png re-renders)
   README.md           This file
   LAUNCH.md           Written in Phase 6: deploy steps + launch checklist
 ```
