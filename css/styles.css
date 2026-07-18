@@ -69,19 +69,34 @@ h1 em { font-style: italic; }
 .btn[disabled] { opacity: .5; cursor: default; }
 
 /* Landing */
-#landing { justify-content: center; text-align: left; padding-top: 8vh; padding-bottom: 40px; }
+#landing { text-align: left; padding-bottom: 40px; }
+#landing .hero {
+  min-height: 92vh;
+  min-height: 92dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 6vh;
+}
 #landing .eyebrow { margin-bottom: 20px; }
 #landing h1 { margin-bottom: 28px; }
 #landing .sub { color: var(--ivory); font-size: 18px; margin-bottom: 14px; max-width: 46ch; }
 #landing .mirror { color: var(--grey); font-size: 15px; margin-bottom: 40px; max-width: 46ch; }
 #landing .btn { align-self: flex-start; }
-#landing .privacy { color: var(--grey); font-size: 12.5px; margin-top: 22px; }
-#landing footer { margin-top: auto; padding-top: 48px; padding-bottom: 12px; }
-#landing footer .who { color: var(--grey); font-size: 13px; line-height: 1.5; }
+#landing .fine-line { color: var(--ivory); font-size: 13px; margin-top: 16px; }
+#landing .privacy { color: var(--grey); font-size: 12.5px; margin-top: 8px; }
+.land-section { padding-top: 64px; }
+.land-section > .eyebrow { margin-bottom: 24px; }
+.walk { display: flex; flex-direction: column; gap: 18px; }
+.walk-item { display: flex; gap: 16px; max-width: 52ch; }
+.walk-item .num { font: 600 13px var(--font-sans); color: var(--gold); letter-spacing: .08em; padding-top: 3px; }
+.walk-item p { color: var(--grey-light); font-size: 15.5px; }
+.cred { color: var(--grey-light); font-size: 15px; max-width: 52ch; margin-bottom: 14px; }
+.land-section .btn { margin-top: 14px; }
+#landing footer { padding-top: 56px; padding-bottom: 12px; }
 #landing footer .motto {
   font: 700 italic 15px/1.4 var(--font-head);
   color: var(--ivory);
-  margin-top: 10px;
 }
 #landing footer img { height: 30px; margin-top: 18px; display: block; margin-left: auto; }
 

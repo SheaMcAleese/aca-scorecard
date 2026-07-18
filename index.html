@@ -23,16 +23,35 @@
 <body>
 <div class="wrap">
 
-  <!-- LANDING (copy refined in Phase 5) -->
+  <!-- LANDING -->
   <section id="landing" class="screen active">
-    <p class="eyebrow">ELV8 Performance</p>
-    <h1>The ACA <em>Scorecard</em></h1>
-    <p class="sub">Accountability. Consistency. Action. Fifteen questions, three minutes, one honest read on each.</p>
-    <p class="mirror">This is not a personality test. It is a mirror. Answer for how you actually behave, not how you would like to.</p>
-    <button class="btn btn-gold" onclick="startScorecard()">Start the scorecard</button>
-    <p class="privacy">Your answers stay on this page unless you choose to have your results emailed.</p>
+    <div class="hero">
+      <p class="eyebrow">ELV8 Performance</p>
+      <h1>Find your <em>leak</em></h1>
+      <p class="sub">Accountability. Consistency. Action. Three pillars, in sequence. Skip one and the whole thing leaks. The ACA Scorecard shows you where yours is.</p>
+      <p class="mirror">This is not a personality test. It is a mirror. Fifteen questions, three minutes, answered for how you actually behave, not how you would like to.</p>
+      <button class="btn btn-gold" onclick="startScorecard()">Start the scorecard</button>
+      <p class="fine-line">Free. No signup to see your results.</p>
+      <p class="privacy">Your answers stay on this page unless you choose to have your results emailed.</p>
+    </div>
+
+    <div class="land-section">
+      <p class="eyebrow">What you walk away with</p>
+      <div class="walk">
+        <div class="walk-item"><span class="num">01</span><p>Each pillar scored out of 100.</p></div>
+        <div class="walk-item"><span class="num">02</span><p>Your leak named. The pillar draining the other two.</p></div>
+        <div class="walk-item"><span class="num">03</span><p>Your next three moves, built from the ACA Framework for your leak.</p></div>
+      </div>
+    </div>
+
+    <div class="land-section">
+      <p class="eyebrow">Who built this</p>
+      <p class="cred">Shea McAleese. 4x Olympian, 320+ international caps, high performance coach in the NZ national environment.</p>
+      <p class="cred">The ACA Framework is not a theory. It is a description of how high-performing people actually behave, distilled from 20 years inside elite sport.</p>
+      <button class="btn btn-gold" onclick="startScorecard()">Start the scorecard</button>
+    </div>
+
     <footer>
-      <p class="who">Built by Shea McAleese. 4x Olympian, 320+ international caps, high performance coach in the NZ national environment.</p>
       <p class="motto">High performance isn't an accident.</p>
       <img src="assets/elv8-white.png" alt="ELV8 Performance">
     </footer>
@@ -63,8 +82,8 @@
       <p class="eyebrow" id="movesEyebrow">Your next three moves</p>
       <div id="movesList"></div>
       <div id="movesLocked" class="moves-locked" style="display:none">
-        <p>Your full action plan, two to three concrete moves built from the ACA Framework for your leak pillar, is part of the full scorecard.</p>
-        <a class="btn btn-gold" id="unlockLink" href="#" target="_blank" rel="noopener">Unlock your action plan</a>
+        <p>Your full action plan, three concrete moves built from the ACA Framework for your leak pillar, is part of the full scorecard.</p>
+        <a class="btn btn-gold" id="unlockLink" href="#" target="_blank" rel="noopener">Get your action plan</a>
       </div>
     </div>
 
