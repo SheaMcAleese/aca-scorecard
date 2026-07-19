@@ -19,9 +19,9 @@ const CONFIG = {
   // sequences/automations, so Kit only builds the list; EmailJS delivers
   // the email). All three values from EMAILJS_SETUP.md. This key is
   // designed to be public/client-side, like the Kit key above.
-  EMAILJS_PUBLIC_KEY: '',
-  EMAILJS_SERVICE_ID: '',
-  EMAILJS_TEMPLATE_ID: '',
+  EMAILJS_PUBLIC_KEY: '8UZU07G2ACbBrTHUV',
+  EMAILJS_SERVICE_ID: 'service_z2qj93p',
+  EMAILJS_TEMPLATE_ID: 'template_52r6d1b',
 
   // v1 ships with the paid gate OFF and disconnected. Both values below must
   // be set for the gate to appear, and PAYMENT_LINK stays empty in v1;
