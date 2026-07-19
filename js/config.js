@@ -15,6 +15,14 @@ const CONFIG = {
   // Leave empty and the waitlist block stays hidden.
   WAITLIST_URL: '',
 
+  // EmailJS sends the actual results email (Kit's free plan has no
+  // sequences/automations, so Kit only builds the list; EmailJS delivers
+  // the email). All three values from EMAILJS_SETUP.md. This key is
+  // designed to be public/client-side, like the Kit key above.
+  EMAILJS_PUBLIC_KEY: '',
+  EMAILJS_SERVICE_ID: '',
+  EMAILJS_TEMPLATE_ID: '',
+
   // v1 ships with the paid gate OFF and disconnected. Both values below must
   // be set for the gate to appear, and PAYMENT_LINK stays empty in v1;
   // that is deliberate. See README.md before touching these.

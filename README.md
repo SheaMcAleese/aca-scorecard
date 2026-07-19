@@ -12,7 +12,8 @@ One mobile-first single-page web app, static host (GitHub Pages):
 2. 15-question ACA assessment (5 per pillar, 1 to 5 frequency scale)
 3. Results: score out of 100 per pillar, weakest pillar named as the leak
 4. Tailored action plan for the leak pillar, drawn from ELV8_ACA_Framework.md
-5. Email capture via Kit; Kit automation emails the results
+5. Email capture: Kit builds the subscriber list, EmailJS sends the
+   results email (Kit's free plan has no automations to do it)
 6. Soft CTA: waitlist for The ACA Framework for Coaches (feeds the 20-pre-sale
    validation bar, decision date 31 Oct 2026)
 
@@ -30,10 +31,11 @@ gate earns its keep.
 - Vanilla HTML + CSS + JS. No framework, no build step, no npm. A solo founder
   can edit any file in a text editor and re-push.
 - Fonts: Google Fonts (Playfair Display, Montserrat), same as elv8.nz.
-- Email: Kit form endpoint, posted from the browser with fetch. Custom fields
-  carry the three pillar scores + leak pillar so the Kit automation can send a
-  personalised results email. No secret keys in the client: the public form
-  action endpoint only.
+- Email: two free services, posted from the browser. Kit's form endpoint
+  builds the subscriber list, custom fields carry the three pillar scores +
+  leak pillar. EmailJS sends the actual results email (Kit's free plan has
+  no automations). No secret keys in the client: public keys only, both
+  designed for client-side use.
 - Host: GitHub Pages, project site. Proposed repo name: `aca-scorecard`
   (final URL: sheamcaleese.github.io/aca-scorecard). Confirm at Phase 6.
 
@@ -43,14 +45,16 @@ gate earns its keep.
 aca-suite/
   index.html          SPA shell: landing, quiz, results screens
   css/styles.css      All styling, tokens from brand/DESIGN.md verbatim
-  js/config.js        Kit form ID, feature flags (PAYWALL_ENABLED=false)
+  js/config.js        Kit + EmailJS IDs, feature flags (PAYWALL_ENABLED=false)
   js/questions.js     The approved 15-question set + answer scale
   js/content.js       Results copy: pillar reads, verdicts, action plans
-  js/app.js           Flow, scoring engine, Kit submit
+  js/app.js           Flow, scoring engine, Kit subscribe, EmailJS send
   assets/             Logo, og image
   design/             Internal design preview + og card source (gitignored,
                       never deploys; keep locally for og.png re-renders)
   README.md           This file
+  KIT_SETUP.md        Kit subscriber-list setup (list-building only)
+  EMAILJS_SETUP.md    EmailJS setup (this is what sends the email)
   LAUNCH.md           Written in Phase 6: deploy steps + launch checklist
 ```
 
@@ -72,9 +76,10 @@ never touch logic.
 ## Data flow
 
 Answers stay in the browser. Nothing is sent anywhere unless the user submits
-the email form. On submit: email + pillar scores + leak go to Kit; Kit tags
-the subscriber and an automation sends the results email. Waitlist CTA adds a
-second tag on the same subscriber.
+the email form. On submit: email + pillar scores + leak go to Kit (builds the
+list, best-effort) and to EmailJS (sends the results email, built from the
+same content.js data the results screen uses). Waitlist CTA just links out to
+the Kit landing page.
 
 ## Hard rules carried from the brief
 

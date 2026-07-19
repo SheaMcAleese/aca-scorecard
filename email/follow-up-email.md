@@ -1,8 +1,10 @@
-# Follow-up email (Kit automation, email 2 of 2)
+# Follow-up email (email 2 of 2)
 
-Sent 2 days after the results email (KIT_SETUP.md, step 6). Short on
-purpose: one push to act, one reply hook. Works for every leak pillar
-without conditionals.
+Sent about 2 days after the results email. Superseded 19 Jul 2026: Kit's
+free plan has no automation to time this, so it is now a manual weekly
+broadcast Shea sends himself (EMAILJS_SETUP.md, "The weekly follow-up").
+This file is the copy to paste when he does. Short on purpose: one push
+to act, one reply hook. Works for every leak pillar without conditionals.
 
 ---
 

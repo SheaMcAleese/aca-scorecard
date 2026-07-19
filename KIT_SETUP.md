@@ -1,13 +1,19 @@
 # Kit setup for the ACA Scorecard
 
-Cost: $0. Everything below works on Kit's FREE Newsletter plan (up to
-10,000 subscribers, unlimited forms and landing pages, unlimited
-broadcasts, and one automation with one email sequence). One automation
-is exactly what this build needs, so do not pay for Creator. Sign up at
-kit.com and pick the free plan. The only free-plan trade-off is a small
-"Powered by Kit" line in the emails.
+Cost: $0, on Kit's FREE Newsletter plan (up to 10,000 subscribers,
+unlimited forms, landing pages, and broadcasts). Sign up at kit.com and
+pick the free plan.
 
-One-time setup, about 20 minutes in your Kit account. Do the steps in
+Correction (19 Jul 2026): an earlier version of this guide said the free
+plan includes one automation and one email sequence. On checking a real
+account, Kit's free plan does not — Sequences and Visual Automations are
+both locked behind the paid Creator plan ($39/mo), which Shea has decided
+against. So Kit's job here is now just building the subscriber list (this
+guide); EMAILJS_SETUP.md handles actually sending the results email, for
+free, from the browser. Do that guide too, it is the one that matters for
+the app to work.
+
+One-time setup, about 15 minutes in your Kit account. Do the steps in
 order: the custom fields must exist before anything else, because Kit
 silently discards data sent to fields that do not exist yet.
 
@@ -68,45 +74,18 @@ the results screen appears automatically once it is set.
 Anyone who joins there is your pre-sale evidence list for the 31 October
 build-or-kill decision.
 
-## 6. Build the automation (free-plan version)
-
-The free plan gives you one automation and one email sequence. Put both
-emails inside the sequence and use the automation only to connect the
-form to it:
-
-1. Kit: Send, then Sequences, then New sequence. Name it: ACA Scorecard
-   results. Add two emails:
-   - Email 1: subject and body from email/results-email.md, delay set to
-     "immediately". Make the [Join the waitlist] line a button linked to
-     the step 5 landing page.
-   - Email 2: subject and body from email/follow-up-email.md, delay set
-     to 2 days after the previous email.
-   Publish the sequence.
-2. Kit: Automate, then Visual Automations, then New automation.
-   - Trigger: Joins a form, pick ACA Scorecard.
-   - Step: Add to sequence, pick ACA Scorecard results.
-   - Set the automation live.
-
-The results email uses Liquid conditionals so each subscriber only sees
-the action plan for their own leak pillar. Paste the body as-is including
-the {% %} lines; Kit renders them at send time.
-
-## 7. Test before launch
+## 6. Test before launch
 
 1. Run the scorecard end to end with your own email.
 2. Check the subscriber in Kit: the five aca_ fields should hold your
-   scores and leak.
-3. Check your inbox: results email arrives within a couple of minutes,
-   with the right numbers, and only one action plan block.
-4. Check the follow-up arrives 2 days later (or temporarily set the wait
-   to 1 minute while testing, then set it back).
-5. Send a test to a second address (partner, alt account) on a phone.
+   scores and leak. (This confirms the list is building correctly. The
+   actual email arriving in your inbox is EmailJS's job, tested in
+   EMAILJS_SETUP.md step 6.)
 
-If scores show blank in the email, the field keys from step 1 do not
-match; fix the field names and retest.
+If scores show blank against the subscriber, the field keys from step 1
+do not match; fix the field names and retest.
 
-## Deliverability
+## Next: EMAILJS_SETUP.md
 
-If your Kit account does not yet have a verified sending domain, do it
-before launch (Kit: Settings, then Email, then Sending domain). Results
-emails from an unverified domain land in spam far more often.
+Kit's part is done. Go do EMAILJS_SETUP.md now, that is what actually
+sends the results email and the weekly follow-up.

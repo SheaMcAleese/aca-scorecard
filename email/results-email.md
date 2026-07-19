@@ -1,13 +1,16 @@
-# Results email (Kit automation, email 1 of 2)
+# Results email (email 1 of 2)
 
-Sent immediately when someone joins the ACA Scorecard form.
-Paste the body below into a Kit email inside the automation (KIT_SETUP.md,
-step 6). The {{ }} and {% %} blocks are Kit Liquid: they fill in each
-subscriber's scores and show only the action plan for their leak pillar.
-Kit renders Liquid in emails automatically, nothing to enable.
+Superseded 19 Jul 2026: this file is now reference copy only. It is no
+longer pasted into Kit — Kit's free plan cannot send it (no
+sequences/automations). The email itself is now built and sent by the app
+via EmailJS; see EMAILJS_SETUP.md for the live template (same copy, EmailJS
+`{{ }}` placeholders instead of Kit Liquid) and js/app.js's
+buildEmailParams() for the logic. Sent immediately when someone submits
+the capture form on the results screen.
 
 The three-move blocks are character-identical to the app (js/content.js),
-signed off by Shea 18 July 2026. If one changes, change both.
+signed off by Shea 18 July 2026. If one changes, change all three: here,
+EMAILJS_SETUP.md's template, and content.js.
 
 ---
 

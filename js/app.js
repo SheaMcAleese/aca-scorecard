@@ -127,8 +127,11 @@ function showResults() {
   document.getElementById('movesLocked').style.display = gated ? '' : 'none';
   if (gated) document.getElementById('unlockLink').href = CONFIG.PAYMENT_LINK;
 
-  // Capture and waitlist stay hidden until wired in config.js.
-  document.getElementById('capture').style.display = (CONFIG.KIT_FORM_ID && CONFIG.KIT_API_KEY) ? '' : 'none';
+  // Capture and waitlist stay hidden until wired in config.js. The capture
+  // card needs EmailJS (it does the actual sending); Kit is best-effort
+  // list-building alongside it, not required for the card to show.
+  const emailReady = CONFIG.EMAILJS_PUBLIC_KEY && CONFIG.EMAILJS_SERVICE_ID && CONFIG.EMAILJS_TEMPLATE_ID;
+  document.getElementById('capture').style.display = emailReady ? '' : 'none';
   document.getElementById('nextStep').style.display = CONFIG.WAITLIST_URL ? '' : 'none';
   if (CONFIG.WAITLIST_URL) document.getElementById('waitlistLink').href = CONFIG.WAITLIST_URL;
 
@@ -138,11 +141,68 @@ function showResults() {
   });
 }
 
-// Kit email capture via the v3 subscribe endpoint (public API key, safe for
-// client-side use; the API secret never appears in this project). Wired by
-// setting CONFIG.KIT_FORM_ID and CONFIG.KIT_API_KEY per KIT_SETUP.md; until
-// both are set the card is hidden. The five aca_* custom fields must exist
-// in Kit first or Kit silently discards them (KIT_SETUP.md, step 1).
+// Kit builds the list (v3 subscribe endpoint, public API key, safe for
+// client-side use; the API secret never appears in this project). Best
+// effort only: list-building must never stop the results email from
+// sending, so failures here are logged, not thrown. Wired by setting
+// CONFIG.KIT_FORM_ID and CONFIG.KIT_API_KEY per KIT_SETUP.md. The five
+// aca_* custom fields must exist in Kit first or Kit silently discards
+// them (KIT_SETUP.md, step 1).
+async function subscribeToKit(email, r, leak) {
+  if (!CONFIG.KIT_FORM_ID || !CONFIG.KIT_API_KEY) return;
+  const res = await fetch('https://api.convertkit.com/v3/forms/' + CONFIG.KIT_FORM_ID + '/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({
+      api_key: CONFIG.KIT_API_KEY,
+      email: email,
+      fields: {
+        aca_accountability: r.pillars[0].score,
+        aca_consistency: r.pillars[1].score,
+        aca_action: r.pillars[2].score,
+        aca_overall: r.overall,
+        aca_leak: leak
+      }
+    })
+  });
+  if (!res.ok) throw new Error('Kit responded ' + res.status);
+}
+
+// EmailJS delivers the actual results email (Kit's free plan has no
+// sequences/automations to do this). The leak-pillar action plan is built
+// here from the same MOVES/VERDICTS data the results screen uses, so the
+// email and the on-screen result can never drift apart. See
+// EMAILJS_SETUP.md for the template these params fill in.
+function buildEmailParams(email, r, leak) {
+  const leakPillar = r.pillars[r.leakIdx];
+  const moves = MOVES[leakPillar.key];
+  return {
+    to_email: email,
+    accountability_score: r.pillars[0].score,
+    consistency_score: r.pillars[1].score,
+    action_score: r.pillars[2].score,
+    overall_score: r.overall,
+    leak_line: r.allHolding
+      ? 'All three pillars are holding. That puts you in rare company, and the work now is holding all three when pressure rises. It always rises.'
+      : 'Your leak is ' + leak + '. The sequence matters. Each pillar depends on the one before it. Skip one and the whole thing leaks. Start with the leak.',
+    moves_intro: r.allHolding ? ('Keep it moving: three ways to raise ' + leakPillar.name.toLowerCase()) : 'Your next three moves',
+    move_1_head: moves[0].head, move_1_body: moves[0].body,
+    move_2_head: moves[1].head, move_2_body: moves[1].body,
+    move_3_head: moves[2].head, move_3_body: moves[2].body,
+    waitlist_url: CONFIG.WAITLIST_URL || ''
+  };
+}
+
+async function sendResultsEmail(email, r, leak) {
+  if (!CONFIG.EMAILJS_PUBLIC_KEY || !CONFIG.EMAILJS_SERVICE_ID || !CONFIG.EMAILJS_TEMPLATE_ID) {
+    throw new Error('Email service not configured');
+  }
+  const params = buildEmailParams(email, r, leak);
+  await emailjs.send(CONFIG.EMAILJS_SERVICE_ID, CONFIG.EMAILJS_TEMPLATE_ID, params, {
+    publicKey: CONFIG.EMAILJS_PUBLIC_KEY
+  });
+}
+
 async function submitEmail(event) {
   event.preventDefault();
   if (!lastResult) return;
@@ -158,23 +218,9 @@ async function submitEmail(event) {
   btn.disabled = true;
   btn.textContent = 'Sending';
   const leak = lastResult.allHolding ? 'None, all holding' : lastResult.pillars[lastResult.leakIdx].name;
+  subscribeToKit(email, lastResult, leak).catch(err => console.warn('Kit subscribe failed', err));
   try {
-    const res = await fetch('https://api.convertkit.com/v3/forms/' + CONFIG.KIT_FORM_ID + '/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({
-        api_key: CONFIG.KIT_API_KEY,
-        email: email,
-        fields: {
-          aca_accountability: lastResult.pillars[0].score,
-          aca_consistency: lastResult.pillars[1].score,
-          aca_action: lastResult.pillars[2].score,
-          aca_overall: lastResult.overall,
-          aca_leak: leak
-        }
-      })
-    });
-    if (!res.ok) throw new Error('Kit responded ' + res.status);
+    await sendResultsEmail(email, lastResult, leak);
     document.getElementById('captureForm').style.display = 'none';
     document.getElementById('captureDone').style.display = '';
   } catch (err) {
