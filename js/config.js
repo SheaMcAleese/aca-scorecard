@@ -4,16 +4,16 @@
 const CONFIG = {
   // The numeric form ID from your Kit form (see KIT_SETUP.md, step 2).
   // Leave empty and the email capture card stays hidden.
-  KIT_FORM_ID: '',
+  KIT_FORM_ID: '9700479',
 
   // Your Kit v3 PUBLIC API key (see KIT_SETUP.md, step 3). This key is
   // designed to be visible in client-side code. Never put the API secret
   // here or anywhere in this project.
-  KIT_API_KEY: '',
+  KIT_API_KEY: '7ZGWgHFYwhRy6HeLae8Vdw',
 
   // Where "Join the waitlist" points (Kit landing page, KIT_SETUP.md step 5).
   // Leave empty and the waitlist block stays hidden.
-  WAITLIST_URL: '',
+  WAITLIST_URL: 'https://elv8-performance.kit.com/aca-framework-waitlist',
 
   // EmailJS sends the actual results email (Kit's free plan has no
   // sequences/automations, so Kit only builds the list; EmailJS delivers
